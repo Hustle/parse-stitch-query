@@ -1,0 +1,36 @@
+{
+  "name": "parse-stitch-query",
+  "version": "1.0.0",
+  "description": "Query helper for retrieving a large number of objects from Parse",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HustleInc/parse-stitch-query.git"
+  },
+  "keywords": [
+    "Parse",
+    "query",
+    "limit"
+  ],
+  "author": "Tyler Brock, Mike Mintz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HustleInc/parse-stitch-query/issues"
+  },
+  "homepage": "https://github.com/HustleInc/parse-stitch-query#readme",
+  "dependencies": {
+    "mocha": "2.4.5",
+    "parse": "^1.7.0",
+    "parse-shim": "1.0.6"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "parse-mockdb": "0.1.12"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  }
+}
