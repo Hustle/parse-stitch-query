@@ -42,8 +42,8 @@ function StitchQuery(query, superStitch) {
 
     const pagePromise = query.find();
 
-    pagePromise.done((pageResults) => {
-      pageResults.forEach(result => { stitchedResults.push(result); });
+    pagePromise.done(function(pageResults) {
+      pageResults.forEach(function(result) { stitchedResults.push(result); });
       const maxBatchSize = pageResults.length === pageSize;
       const lastResult = stitchedResults[stitchedResults.length - 1];
 
