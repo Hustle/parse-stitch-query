@@ -19,7 +19,7 @@ requesting only items that have `createdAt` greater than that of the last item r
 the skip to zero. This process is repeated until all results are retrieved (receiving a batch with
 less than the requested limit of 1000 documents).
 
- - Note: SuperStitchQuery should **not** be used on queries that already have a sort applied!
+ - Warning: SuperStitchQuery should **not** be used on queries that already have a sort applied!
 
 #### Installation
 ```sh
@@ -34,17 +34,16 @@ var StitchQuery = require('parse-stitch-query');
 var query = new Parse.Query(Model);
 query.equalTo('blah', 'cool');
 
-// Get up to 10,000 results
+// Get up to 10,000 results with regular StitchQuery
 StitchQuery(query).then((results) => {
   // all the results are here!
 }, (error) => {
   // oh noes! errors
 })
 
-// SuperStitchQuery, for unlimited results
-StitchQuery(query, true).then((results) => {
-  // all the results are here!
-}, (error) => {
-  // oh noes! errors
-})
+// SuperStitchQuery, for unlimited results!
+StitchQuery(query, {superStitch: true}).then(...)
+
+// Pass through query options 
+StitchQuery(query, {userMasterKey: true}).then(...)
 ```

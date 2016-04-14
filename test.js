@@ -85,7 +85,7 @@ describe('StitchQueryP', function() {
       it('returns all of the expected results @slow', function() {
         this.timeout(30000);
         return saveObjsP(10100).then((objs) => {
-          return StitchQueryP(new Parse.Query(Obj), true)
+          return StitchQueryP(new Parse.Query(Obj), {superStitch: true})
         }).then((results) => {
           expect(results).to.have.lengthOf(10100);
         })

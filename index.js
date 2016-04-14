@@ -2,6 +2,9 @@
 
 const Parse = require('parse-shim');
 
+const PAGE_SIZE = 1000;
+const MAX_QUERIES = 10;
+
 //
 // Run the specified parse query multiple times, modifying skip/limit each
 // time to download all available objects. Return a promise with the stitched
@@ -11,46 +14,47 @@ const Parse = require('parse-shim');
 // For safety, unless superStitch is specified, this limits the total number
 // of queries to 10, yielding an effective max of 10,000 results.
 //
-// If 'superStitch' is specified, results are ordered and additionally paged
+// If the 'superStitch' option is specified, results are ordered and additionally paged
 // by the 'createdAt' date field after exhausting the 10k skip. This effectively
 // allows a query to yield unlimited results.
 //
 // @param query {Parse.Query} The query to stitch.
-// @param superStitch {Boolean} If you want more than 10k rows you can superStitch.
+// @param options {Object} StitchQuery options below, all others passed to query as query opts.
+//   - superStitch {Boolean} If you want more than 10k rows you can superStitch.
 //
 // NOTE: superStitch is not suitable for use with a sort (as it applies its own sort on createdAt)
 // NOTE: This will modify the specified query, do not reuse the query after calling this function.
 //
-function StitchQuery(query, superStitch) {
-  const pageSize = 1000;
-  const maxQueries = 10;
+function StitchQuery(query, options) {
+  options = options || {};
 
-  query.limit(pageSize);
+  query.limit(PAGE_SIZE);
 
-  if (superStitch) {
+  if (options.superStitch) {
     query.ascending('createdAt');
   }
 
   const stitchedPromise = new Parse.Promise();
   const stitchedResults = [];
+
   function getNextPage(curPage, startDate) {
-    query.skip(curPage * pageSize);
+    query.skip(curPage * PAGE_SIZE);
 
     if (startDate) {
       query.greaterThan('createdAt', startDate);
     }
 
-    const pagePromise = query.find();
+    const pagePromise = query.find(options);
 
     pagePromise.done(function(pageResults) {
       pageResults.forEach(function(result) { stitchedResults.push(result); });
-      const maxBatchSize = pageResults.length === pageSize;
+      const maxBatchSize = pageResults.length === PAGE_SIZE;
       const lastResult = stitchedResults[stitchedResults.length - 1];
 
       if (maxBatchSize) {
-        if (curPage + 1 < maxQueries) {
+        if (curPage + 1 < MAX_QUERIES) {
           getNextPage(curPage + 1, startDate);
-        } else if (superStitch) {
+        } else if (options.superStitch) {
           getNextPage(0, lastResult.createdAt);
         } else {
           stitchedPromise.resolve(stitchedResults);
