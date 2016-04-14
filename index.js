@@ -1,9 +1,7 @@
-'use strict';
+var Parse = require('parse-shim');
 
-const Parse = require('parse-shim');
-
-const PAGE_SIZE = 1000;
-const MAX_QUERIES = 10;
+var PAGE_SIZE = 1000;
+var MAX_QUERIES = 10;
 
 //
 // Run the specified parse query multiple times, modifying skip/limit each
@@ -34,8 +32,8 @@ function StitchQuery(query, options) {
     query.ascending('createdAt');
   }
 
-  const stitchedPromise = new Parse.Promise();
-  const stitchedResults = [];
+  var stitchedPromise = new Parse.Promise();
+  var stitchedResults = [];
 
   function getNextPage(curPage, startDate) {
     query.skip(curPage * PAGE_SIZE);
@@ -44,12 +42,12 @@ function StitchQuery(query, options) {
       query.greaterThan('createdAt', startDate);
     }
 
-    const pagePromise = query.find(options);
+    var pagePromise = query.find(options);
 
     pagePromise.done(function(pageResults) {
       pageResults.forEach(function(result) { stitchedResults.push(result); });
-      const maxBatchSize = pageResults.length === PAGE_SIZE;
-      const lastResult = stitchedResults[stitchedResults.length - 1];
+      var maxBatchSize = pageResults.length === PAGE_SIZE;
+      var lastResult = stitchedResults[stitchedResults.length - 1];
 
       if (maxBatchSize) {
         if (curPage + 1 < MAX_QUERIES) {
