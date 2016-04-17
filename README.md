@@ -1,5 +1,7 @@
 ## StitchQuery - "for getting all your stuff"™
 
+Build Status: [![Circle CI](https://circleci.com/gh/HustleInc/parse-stitch-query.svg?style=svg)](https://circleci.com/gh/HustleInc/parse-stitch-query)
+
 StitchQuery allows you to query for more than 1000 objects by making multiple requests and stitching
 the results together.
 
