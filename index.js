@@ -29,17 +29,17 @@ function StitchQuery(query, options) {
   query.limit(PAGE_SIZE);
 
   if (options.superStitch) {
-    query.ascending('createdAt');
+    query.ascending('objectId');
   }
 
   var stitchedPromise = new Parse.Promise();
   var stitchedResults = [];
 
-  function getNextPage(curPage, startDate) {
+  function getNextPage(curPage, lastObjectId) {
     query.skip(curPage * PAGE_SIZE);
 
-    if (startDate) {
-      query.greaterThan('createdAt', startDate);
+    if (lastObjectId) {
+      query.greaterThan('objectId', lastObjectId);
     }
 
     var pagePromise = query.find(options);
@@ -51,9 +51,9 @@ function StitchQuery(query, options) {
 
       if (maxBatchSize) {
         if (curPage + 1 < MAX_QUERIES) {
-          getNextPage(curPage + 1, startDate);
+          getNextPage(curPage + 1, lastObjectId);
         } else if (options.superStitch) {
-          getNextPage(0, lastResult.createdAt);
+          getNextPage(0, lastResult.id);
         } else {
           stitchedPromise.resolve(stitchedResults);
         }
