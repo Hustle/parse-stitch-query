@@ -22,12 +22,12 @@
   },
   "homepage": "https://github.com/HustleInc/parse-stitch-query#readme",
   "dependencies": {
-    "mocha": "2.4.5",
     "parse": "^1.7.0",
     "parse-shim": "1.0.6"
   },
   "devDependencies": {
     "chai": "3.5.0",
+    "mocha": "2.4.5",
     "parse-mockdb": "0.1.12"
   },
   "engines": {
