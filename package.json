@@ -28,7 +28,7 @@
   "devDependencies": {
     "chai": "3.5.0",
     "mocha": "2.4.5",
-    "parse-mockdb": "0.1.12"
+    "parse-mockdb": "^0.2.1"
   },
   "engines": {
     "node": ">=4.0.0"
