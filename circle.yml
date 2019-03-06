@@ -8,17 +8,13 @@ jobs:
       - checkout
       - run:
           name: Install Dependencies
-          command: yarn install --no-progress
+          command: npm install --no-progress
       - run:
           name: Run Tests
-          command: yarn test
+          command: npm test
 
 workflows:
   version: 2
   hustle_workflow:
     jobs:
-      - lint_and_test:
-          filters:
-            branches:
-              only:
-                - /.*/
+      - lint_and_test
