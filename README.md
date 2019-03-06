@@ -1,6 +1,6 @@
 ## StitchQuery - "for getting all your stuff"™
 
-Build Status: [![Circle CI](https://circleci.com/gh/HustleInc/parse-stitch-query.svg?style=svg)](https://circleci.com/gh/HustleInc/parse-stitch-query)
+Build Status: [![Circle CI](https://circleci.com/gh/Hustle/parse-stitch-query.svg?style=svg)](https://circleci.com/gh/Hustle/parse-stitch-query)
 
 StitchQuery allows you to query for more than 1000 objects by making multiple requests and stitching
 the results together.
@@ -30,7 +30,7 @@ StitchQuery(query).then((results) => {
 // SuperStitchQuery, for unlimited results!
 StitchQuery(query, {superStitch: true}).then(...)
 
-// Pass through query options 
+// Pass through query options
 StitchQuery(query, {userMasterKey: true}).then(...)
 ```
 
