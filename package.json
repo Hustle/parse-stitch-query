@@ -1,6 +1,6 @@
 {
   "name": "parse-stitch-query",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Query helper for retrieving a large number of objects from Parse",
   "main": "index.js",
   "scripts": {
